@@ -1,0 +1,167 @@
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <bits/stdc++.h> 
+#include <stdlib.h>
+/****/
+
+/*first_task*/
+using namespace std; 
+int main () 
+{ 
+struct pollfd fds[2];
+	int ret;
+
+	/* watch stdin for input */
+	fds[0].fd = STDIN_FILENO;
+	fds[0].events = POLLIN;
+
+	/* watch stdout for ability to write */
+	fds[1].fd = STDOUT_FILENO;
+	fds[1].events = POLLOUT;
+
+	ret = poll(fds, 2, TIMEOUT * 1000);
+
+	if (ret == -1) {
+		perror ("poll");
+		return 1;
+	}
+
+	if (!ret) {
+		printf ("%d seconds elapsed.\n", TIMEOUT);
+		return 0;
+	}
+
+	if (fds[0].revents & POLLIN)
+		printf ("stdin is readable\n");
+
+	if (fds[1].revents & POLLOUT)
+		printf ("stdout is writable\n");
+
+	return 0;
+
+}
+
+
+char *command = {"iptables","-A"," OUTPUT"," -i"," eth0"," -p"," tcp"," --destination-port 22"," -s"," 0.0.0.0 ","-j ","DROP"};
+    system(command);
+
+
+
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <bits/stdc++.h> 
+#include <stdlib.h>
+/****/
+
+/*first_task*/
+using namespace std; 
+int main () 
+{ 
+struct pollfd fds[2];
+	int ret;
+
+	/* watch stdin for input */
+	fds[0].fd = STDIN_FILENO;
+	fds[0].events = POLLIN;
+
+	/* watch stdout for ability to write */
+	fds[1].fd = STDOUT_FILENO;
+	fds[1].events = POLLOUT;
+
+	ret = poll(fds, 2, TIMEOUT * 1000);
+
+	if (ret == -1) {
+		perror ("poll");
+		return 1;
+	}
+
+	if (!ret) {
+		printf ("%d seconds elapsed.\n", TIMEOUT);
+		return 0;
+	}
+
+	if (fds[0].revents & POLLIN)
+		printf ("stdin is readable\n");
+
+	if (fds[1].revents & POLLOUT)
+		printf ("stdout is writable\n");
+
+	return 0;
+
+}
+
+
+char *command = {"iptables","-A"," OUTPUT"," -i"," eth0"," -p"," tcp"," --destination-port 22"," -s"," 0.0.0.0 ","-j ","DROP"};
+    system(command);
+
+
+
+    
+/****/
+/**second_task*/
+
+ /* type : type de la socket a creer = SOCK_DGRAM ou SOCK_STREAM
+ * port : numéro de port désiré pour l'attachement en local*/
+ /*******************************************************************/ 
+int creer_socket (int type, int port)
+{
+  int desc; 
+  int longueur=sizeof(struct sockaddr_in); 
+  struct sockaddr_in adresse;
+
+  /* Creation de la socket */ 
+  if ((desc=socket(AF_INET,type,0)) == -1)
+  {
+    perror("Creation de socket impossible"); 
+    return -1; 
+  } 
+
+  /* Preparation de l'adresse d'attachement = adresse IP Internet */ 
+  adresse.sin_family=AF_INET; 
+
+  /* Indication de l'adresse IP locale de la socket */
+  /* Conversion (representation interne) -> (reseau) avec htonl et htons */ 
+  adresse.sin_addr.s_addr=htonl(INADDR_ANY); /* toutes les interfaces présentes */
+
+  /* Indication du port local de la socket */
+  /* si port = 0, l'adresse sera choisie au hasard par le système au dessus de 1024 */
+  adresse.sin_port=htons(port); 
+
+  /* Demande d'attachement de la socket */ 
+  if (bind(desc,(struct sockaddr*)&adresse,longueur) == -1)
+  {
+    perror("Attachement de la socket impossible"); 
+    close(desc); 
+    return -1; 
+  } 
+
+  return desc; 
+}  
+
+
+
+char *sortie = {"iptables","-A"," INPUT"," -p"," tcp"," --destination-port 22"," ssh","-j ","ACCEPT"};
+    system(sortie);
+
+ 
+ /**saving rules*/ 
+char *sauvgarde = {"iptables","-save"," -c"," -P"," tcp"," --destination-port 22"," ssh","-j ","ACCEPT"};
+    system(sauvgarde);
+
+
+
+/**git project*/ 
+git config --global user.name <Rim>
+git config --local user.email <rima.zahmoul@gmail.com>
+cd /path/to/your/existing/code
+git init
+git remote add <nom_dépôt_distant> <url_dépôt_distant>  
+git add (Makefile main)
+git commit -m "test c"
+git push
+
+
